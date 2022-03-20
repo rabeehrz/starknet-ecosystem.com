@@ -47,7 +47,7 @@ function TagMenu({ tags, initialValue, onChange }: TagMenuProps) {
                 : "whiteAlpha.100",
           }}
         >
-          {t.tags[tag.value]}
+          {t.tags[tag.value] || tag.label}
         </ChakraTag>
       ))}
     </Stack>
