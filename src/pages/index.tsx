@@ -110,9 +110,9 @@ const Home: NextPage = () => {
       </Text>
       {/* Main part */}
       <Flex w="full" direction="column" mt={8}>
-        <Text textAlign="center" fontSize="24px" my={2}>
-          Categories
-        </Text>
+        {/* <Text fontWeight="bold" textAlign="center" fontSize="36px" my={6}>
+          Category
+        </Text> */}
         <TagMenu
           initialValue={allTags[0]}
           tags={allTags}
@@ -124,9 +124,9 @@ const Home: NextPage = () => {
             setFlippedIndex(-1);
           }}
         />
-        <Text textAlign="center" fontSize="24px" my={2}>
-          Network status
-        </Text>
+        <Box my={4}>
+          <hr />
+        </Box>
         <TagMenu
           initialValue={allStatusTags[0]}
           tags={allStatusTags}

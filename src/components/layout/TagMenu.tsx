@@ -29,7 +29,7 @@ function TagMenu({ tags, initialValue, onChange }: TagMenuProps) {
     >
       {tags.map((tag: Tag) => (
         <ChakraTag
-          mt={2}
+          my={1}
           size="lg"
           key={tag.value}
           variant="solid"
