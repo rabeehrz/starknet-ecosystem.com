@@ -1,16 +1,16 @@
-import {Box, Flex, Stack, Text} from "@chakra-ui/layout";
-import type {NextPage} from "next";
-import {useEffect, useState} from "react";
+import { Box, Flex, Stack, Text } from "@chakra-ui/layout";
+import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 import useInView from "react-cool-inview";
 
-import type {Project, ProjectItf} from "../../data/ecosystem";
-import {allProjects} from "../../data/ecosystem";
-import type {Tag} from "../../data/tag";
-import {allTags} from "../../data/tag";
-import {allStatusTags, getStatus, Status} from "../../data/status-tag";
+import type { Project, ProjectItf } from "../../data/ecosystem";
+import { allProjects } from "../../data/ecosystem";
+import { allStatusTags, getStatus, Status } from "../../data/status-tag";
+import type { Tag } from "../../data/tag";
+import { allTags } from "../../data/tag";
 import CardProject from "../components/card/CardProject";
 import TagMenu from "../components/layout/TagMenu";
-import {useTranslate} from "../context/TranslateProvider";
+import { useTranslate } from "../context/TranslateProvider";
 
 const Home: NextPage = () => {
   const { t } = useTranslate();
@@ -24,24 +24,30 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const newProjects = allProjects
-        // Filter projects by tags
+      // Filter projects by tags
       .filter((project: Project) => {
-        return tagsFilter === tagAll || project.tags.indexOf(tagsFilter.value) !== -1;
+        return (
+          tagsFilter === tagAll || project.tags.indexOf(tagsFilter.value) !== -1
+        );
       })
       // Filter projects by status (all | live | testnet)
       .filter((project: Project) => {
-        return statusFilter === Status.ALL ||
-            (project.isLive && statusFilter === Status.LIVE) ||
-            // We don't want here projects in testnet && live
-            (!project.isLive && project.isTestnetLive && statusFilter === Status.TESTNET)
+        return (
+          statusFilter === Status.ALL ||
+          (project.isLive && statusFilter === Status.LIVE) ||
+          // We don't want here projects in testnet && live
+          (!project.isLive &&
+            project.isTestnetLive &&
+            statusFilter === Status.TESTNET)
+        );
       })
-        // Sort projects a-z
+      // Sort projects a-z
       .sort((project1, project2) =>
         project1.name.toLowerCase().localeCompare(project2.name.toLowerCase())
       )
-        // Lazy loading
+      // Lazy loading
       .slice(0, lastIndexLoaded)
-        // Map tag object
+      // Map tag object
       .map((project) => {
         const projectTags = project.tags;
         return {
@@ -104,6 +110,9 @@ const Home: NextPage = () => {
       </Text>
       {/* Main part */}
       <Flex w="full" direction="column" mt={8}>
+        <Text textAlign="center" fontSize="24px" my={2}>
+          Categories
+        </Text>
         <TagMenu
           initialValue={allTags[0]}
           tags={allTags}
@@ -115,16 +124,19 @@ const Home: NextPage = () => {
             setFlippedIndex(-1);
           }}
         />
+        <Text textAlign="center" fontSize="24px" my={2}>
+          Network status
+        </Text>
         <TagMenu
-            initialValue={allStatusTags[0]}
-            tags={allStatusTags}
-            onChange={(newFilter) => {
-              setStatusFilter(getStatus(newFilter.value));
-              // Reset lazy loading index
-              setLastIndexLoaded(LOADED_STEPS);
-              // Reset flipped cards to none
-              setFlippedIndex(-1);
-            }}
+          initialValue={allStatusTags[0]}
+          tags={allStatusTags}
+          onChange={(newFilter) => {
+            setStatusFilter(getStatus(newFilter.value));
+            // Reset lazy loading index
+            setLastIndexLoaded(LOADED_STEPS);
+            // Reset flipped cards to none
+            setFlippedIndex(-1);
+          }}
         />
         <Stack
           mt={10}
