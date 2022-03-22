@@ -110,24 +110,31 @@ const Home: NextPage = () => {
       </Text>
       {/* Main part */}
       <Flex w="full" direction="column" mt={8}>
-        {/* <Text fontWeight="bold" textAlign="center" fontSize="36px" my={6}>
-          Category
-        </Text> */}
-        <TagMenu
-          initialValue={allTags[0]}
-          tags={allTags}
-          onChange={(newFilter) => {
-            setTagsFilter(newFilter);
-            // Reset lazy loading index
-            setLastIndexLoaded(LOADED_STEPS);
-            // Reset flipped cards to none
-            setFlippedIndex(-1);
-          }}
-        />
-        <Box my={4}>
-          <hr />
-        </Box>
-        <TagMenu
+      <Flex w="full" direction="row" justify="space-between" align="flex-start">
+        <Flex flex={2} justify="flex-start" align="center">
+          <Text fontWeight="bold" textAlign="center" fontSize="24px">
+            Category
+          </Text>
+          <TagMenu
+              initialValue={allTags[0]}
+              tags={allTags}
+              onChange={(newFilter) => {
+                setTagsFilter(newFilter);
+                // Reset lazy loading index
+                setLastIndexLoaded(LOADED_STEPS);
+                // Reset flipped cards to none
+                setFlippedIndex(-1);
+              }}
+          />
+        </Flex>
+        <Flex flex={1} justify="flex-end">
+          <Text fontWeight="bold" textAlign="center" fontSize="24px">
+            Checkbox
+          </Text>
+        </Flex>
+      </Flex>
+
+        {/*<TagMenu
           initialValue={allStatusTags[0]}
           tags={allStatusTags}
           onChange={(newFilter) => {
@@ -137,7 +144,7 @@ const Home: NextPage = () => {
             // Reset flipped cards to none
             setFlippedIndex(-1);
           }}
-        />
+        />*/}
         <Stack
           mt={10}
           direction="row"
